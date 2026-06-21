@@ -1,0 +1,67 @@
+<div class="card">
+    <div class="form-container">
+        <div class="input-group">
+            <label for="day" [class.error-label]="dayError()">DIA</label>
+            <input type="text" id="day" [value]="day()" (input)="day.set($any($event.target).value)" placeholder="DD"
+                maxlength="2" inputmode="numeric" autocomplete="off" pattern="[0-9]*" [class.error-input]="dayError()">
+            @if (dayError()) {
+            <p class="error-message">{{ dayError() }}</p>
+            }
+        </div>
+
+        <div class="input-group">
+            <label for="month" [class.error-label]="monthError()">MÊS</label>
+            <input type="text" id="month" [value]="month()" (input)="month.set($any($event.target).value)"
+                placeholder="MM" maxlength="2" inputmode="numeric" autocomplete="off" pattern="[0-9]*"
+                [class.error-input]="monthError()">
+            @if (monthError()) {
+            <p class="error-message">{{ monthError() }}</p>
+            }
+        </div>
+
+        <div class="input-group">
+            <label for="year" [class.error-label]="yearError()">ANO</label>
+            <input type="text" id="year" [value]="year()" (input)="year.set($any($event.target).value)"
+                placeholder="YYYY" maxlength="4" inputmode="numeric" autocomplete="off" pattern="[0-9]*"
+                [class.error-input]="yearError()">
+            @if (yearError()) {
+            <p class="error-message">{{ yearError() }}</p>
+            }
+        </div>
+    </div>
+
+    <div class="divider-container">
+        <hr class="line">
+        <button type="button" class="submit-btn" (click)="calculateAge()"
+            (keydown.enter)="calculateAge(); $event.preventDefault()" aria-label="Calculate age">
+            <svg xmlns="http://www.w3.org/2000/svg" width="46" height="44" viewBox="0 0 46 44">
+                <g fill="none" stroke="#FFF" stroke-width="3">
+                    <path d="M1 22.019C8.333 21.686 23 25.616 23 44M23 44V0M23 44c0-18.384 14.667-22.314 22-22.019" />
+                </g>
+            </svg>
+        </button>
+    </div>
+
+    <div class="results-container">
+        <h1><span>{{ yearsResult() }}</span> 
+            @if (yearsResult() === '1' || yearsResult() === '0') {
+            ano
+            } @else {
+                anos
+            }
+        </h1>
+        <h1><span>{{ monthsResult() }}</span>
+            @if (monthsResult() === '1' || monthsResult() === '0') {
+            mês
+            } @else {
+                meses
+            }</h1>
+        <h1><span>{{ daysResult() }}</span> 
+            @if (daysResult() === '1' || daysResult() === '0') {
+            dia
+            } @else {
+                dias
+            }
+        </h1>
+    </div>
+</div>
