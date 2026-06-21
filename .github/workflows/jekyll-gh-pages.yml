@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Lembre-se de ajustar este caminho para o do seu projeto!
-          path: './dist/nome-do-seu-projeto/browser' 
+          path: './dist/age-calculator-app-main/browser' 
 
   deploy:
     environment:
