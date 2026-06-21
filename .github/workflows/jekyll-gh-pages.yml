@@ -31,7 +31,7 @@ jobs:
         run: npm ci
 
       - name: Build do Angular
-        run: npm run build -- --configuration=production
+        run: npm run build -- --configuration=production --base-href=/age-calculator-app-main/
 
       - name: Configurar Pages
         uses: actions/configure-pages@v5
