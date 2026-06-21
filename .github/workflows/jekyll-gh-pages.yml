@@ -24,7 +24,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - name: Instalar dependências
@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Lembre-se de ajustar este caminho para o do seu projeto!
-          path: './dist/age-calculator-app-main-ang' 
+          path: './dist/age-calculator-app-main-ang/browser' 
 
   deploy:
     environment:
