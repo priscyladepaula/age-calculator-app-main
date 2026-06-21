@@ -37,8 +37,8 @@ Os usuários devem ser capazes de:
 
 ### Links
 
-- URL da Solução: [Frontend Mentor](https://your-solution-url.com)
-- URL do Site Live: [Github Page](https://your-live-site-url.com)
+- URL da Solução: [Frontend Mentor](https://www.frontendmentor.io/solutions/age-calculator-app-angular-zGu2NSCdyE)
+- URL do Site Live: [Github Page](https://priscyladepaula.github.io/age-calculator-app-main/)
 
 ## Meu Processo
 
