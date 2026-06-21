@@ -1,10 +1,8 @@
-# Workflow para compilar e implantar um projeto Angular no GitHub Pages
 name: Deploy Angular application to GitHub Pages
 
 on:
   push:
     branches: ["main"]
-
   workflow_dispatch:
 
 permissions:
@@ -14,10 +12,9 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true # Mudei para true para cancelar execuções antigas e evitar duplicidade
 
 jobs:
-  # Job de Build (Compilação)
   build:
     runs-on: ubuntu-latest
     steps:
@@ -27,7 +24,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20 # Versão estável do Node recomendada para Angular moderno
+          node-version: 20
           cache: 'npm'
 
       - name: Instalar dependências
@@ -42,12 +39,9 @@ jobs:
       - name: Upload do artefato
         uses: actions/upload-pages-artifact@v3
         with:
-          # ATENÇÃO: No Angular, a pasta gerada fica dentro de 'dist/[nome-do-seu-projeto]/browser' (Angular 17+)
-          # ou apenas 'dist/[nome-do-seu-projeto]' (Angular 16 para baixo).
-          # Verifique no seu projeto local qual pasta é criada dentro de 'dist' após dar um 'npm run build' e ajuste a linha abaixo:
-          path: './dist/age-calculator-app-main/browser' 
+          # Lembre-se de ajustar este caminho para o do seu projeto!
+          path: './dist/nome-do-seu-projeto/browser' 
 
-  # Job de Implantação (Deployment)
   deploy:
     environment:
       name: github-pages
@@ -57,4 +51,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4 # Forçando a v4 que casa perfeitamente com o upload v3
