@@ -83,9 +83,30 @@ export class AgeCalculator {
     // Validação da data não pode ser no futuro
     const today = new Date();
     if (birthDate > today) {
-      this.yearError.set('Deve ser no passado');
-      return;
-    }
+      let isFuture = false;
+
+      if (y > today.getFullYear()) {
+        this.dayError.set('Deve ser no passado');
+        this.monthError.set('Deve ser no passado');
+        this.yearError.set('Deve ser no passado');
+        isFuture = true;
+      }
+
+      else if (y === today.getFullYear()) {
+
+        if (m - 1 > today.getMonth()) {
+          this.monthError.set('Deve ser no passado');
+          this.dayError.set('Deve ser no passado');
+        }
+        
+        else if (m - 1 === today.getMonth() && d > today.getDate()) {
+          this.dayError.set('Deve ser no passado');
+        }
+
+        isFuture = true;
+      }
+
+      if (isFuture) return;
 
     // Cálculo da idade
     let years = today.getFullYear() - birthDate.getFullYear();
