@@ -60,7 +60,7 @@ export class AgeCalculator {
     }
 
     // Valida o ano individualmente
-    if (yearStr !== '' && (isNaN(y) || y < 1 || y > currentYear)) {
+    if (yearStr !== '' && (isNaN(y) || y < 1 || y > 9999)) {
       this.yearError.set('Deve ser um ano válido');
       hasError = true;
     }
@@ -70,9 +70,9 @@ export class AgeCalculator {
 
     // Validação de consistência da data completa (Ex: 31/04/2020)
     const birthDate = new Date(y, m - 1, d);
-    const isDateCombinationValid = 
-      birthDate.getFullYear() === y && 
-      birthDate.getMonth() === m - 1 && 
+    const isDateCombinationValid =
+      birthDate.getFullYear() === y &&
+      birthDate.getMonth() === m - 1 &&
       birthDate.getDate() === d;
 
     if (!isDateCombinationValid) {
@@ -83,8 +83,31 @@ export class AgeCalculator {
     // Validação da data não pode ser no futuro
     const today = new Date();
     if (birthDate > today) {
-      this.yearError.set('Deve ser no passado');
-      return;
+      let isFuture = false;
+
+      if (y > today.getFullYear()) {
+        this.dayError.set('Deve ser no passado');
+        this.monthError.set('Deve ser no passado');
+        this.yearError.set('Deve ser no passado');
+        isFuture = true;
+      }
+
+      else if (y === today.getFullYear()) {
+
+        if (m - 1 > today.getMonth()) {
+          this.monthError.set('Deve ser no passado');
+          this.dayError.set('Deve ser no passado');
+        }
+        
+        else if (m - 1 === today.getMonth() && d > today.getDate()) {
+          this.dayError.set('Deve ser no passado');
+        }
+
+        isFuture = true;
+      }
+
+      if (isFuture) return;
+
     }
 
     // Cálculo da idade
